@@ -28,7 +28,8 @@ namespace Contoso
                     {
                         var context = services.GetRequiredService<ContosoContext>();
                         context.Database.EnsureCreated();
-                    }
+                    DbInitializer.Initialize(context);
+                }
                     catch (Exception ex)
                     {
                         var logger = services.GetRequiredService<ILogger<Program>>();
