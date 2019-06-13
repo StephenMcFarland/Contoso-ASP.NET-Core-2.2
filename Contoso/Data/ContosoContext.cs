@@ -14,5 +14,7 @@ namespace Contoso.Models
         }
 
         public DbSet<Contoso.Models.Student> Student { get; set; }
+        public DbSet<Contoso.Models.Enrollment> Enrollment { get; set; }
+        public DbSet<Contoso.Models.Course> Course { get; set; }
     }
 }
