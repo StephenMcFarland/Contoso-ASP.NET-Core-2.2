@@ -49,28 +49,40 @@ namespace Contoso.Pages.Students
             var studentToUpdate = await _context.Student.FindAsync(id);
             //_context.Attach(Student).State = EntityState.Modified;
 
-            try
+            //    try
+            //    {
+            //        await _context.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!StudentExists(Student.ID))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
+
+            //    return RedirectToPage("./Index");
+            //}
+
+            //private bool StudentExists(int id)
+            //{
+            //    return _context.Student.Any(e => e.ID == id);
+            //}
+
+            if (await TryUpdateModelAsync<Student>(
+           studentToUpdate,
+           "student",
+           s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StudentExists(Student.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
-        }
-
-        private bool StudentExists(int id)
-        {
-            return _context.Student.Any(e => e.ID == id);
+            return Page();
         }
     }
 }
